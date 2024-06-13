@@ -9,7 +9,7 @@ public class SettingsController : MonoBehaviour
     [SerializeField] Slider volume;
     [SerializeField] AudioMixer mixer;
 
-
+   
     private void Awake()
     {
         if (PlayerPrefs.HasKey("Sound"))
@@ -22,9 +22,8 @@ public class SettingsController : MonoBehaviour
             mixer.SetFloat("MasterVolume", Mathf.Log10(0.1f) * 20);
             volume.value = 0.1f;
         }
-        
-            Debug.Log( PlayerPrefs.GetFloat("Sound"));
     }
+    
     public void OnSliderChange()
     {
         mixer.SetFloat("MasterVolume", Mathf.Log10(volume.value)*20);

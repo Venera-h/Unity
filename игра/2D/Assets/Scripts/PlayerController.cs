@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     GameObject CurFlag;
     int cointCoun = 0;
 
+  
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -51,12 +52,14 @@ public class PlayerController : MonoBehaviour
         transform.position = startPos;
     }
 
+  
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.Space)) Jump();
         if (Input.GetKeyDown(KeyCode.R)) Atack();
         Move();
     }
+   
     void Move()
     {
         float horInput = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
     }
+   
     void Jump()
     {
         rb.AddForce(new Vector2(rb.velocity.x, jumpForce * Time.deltaTime), ForceMode2D.Impulse);
@@ -75,17 +79,20 @@ public class PlayerController : MonoBehaviour
         audioSource.clip = JumpSound;
         audioSource.Play();
     }
+   
     void Atack()
     {
         GameObject g = Instantiate(bullet, bulletStartPos.position, Quaternion.identity);
         g.transform.localScale = transform.localScale / 5f;
     }
+    
 
     void Flip()
     {
         transform.localScale = new Vector2(Mathf.Sign(rb.velocity.x), 1f);
     }
 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("PE"))
@@ -126,7 +133,8 @@ public class PlayerController : MonoBehaviour
            StartCoroutine( Die());
         }
     }
-
+    
+   
     IEnumerator Die()
     {
         yield return new WaitForSeconds(.6f);
@@ -161,26 +169,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+   
     private void Resart()
     {
         manager.LoadThisLevel();
 
     }
-
+   
     void SetPos(Transform newPos)
     {
         startPos = newPos.position;
         SavePos(startPos.x, startPos.y);
     }
+    
     void SavePos(float x, float y)
     {
         PlayerPrefs.SetFloat("PosX", x);
         PlayerPrefs.SetFloat("PosY", y);
     }
+
+  
     Vector2 LoadPos()
     {
         return new Vector2(PlayerPrefs.GetFloat("PosX"), PlayerPrefs.GetFloat("PosY"));
     }
+  
     void Collect()
     {
         audioSource.clip = picUpCoinSound;

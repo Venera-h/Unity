@@ -8,6 +8,7 @@ public class PausePanelController : MonoBehaviour
 
     bool isPaused = false;
 
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)

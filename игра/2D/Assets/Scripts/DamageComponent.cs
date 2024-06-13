@@ -6,6 +6,7 @@ public class DamageComponent : MonoBehaviour
 {
     [SerializeField] float damage;
 
+    // посылает урон (пытается взять HealtComponent и дает через него урон)
     public void DealDamage(GameObject obj)
     {
         if(obj.TryGetComponent(out HealtComponent hp))
